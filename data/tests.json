@@ -1,0 +1,64 @@
+[
+  {
+    "category": "Milk & Dairy",
+    "item": "Milk",
+    "adulterants": [
+      "Starch",
+      "Detergent",
+      "Water"
+    ],
+    "materials": [
+      "Glass bowl",
+      "Iodine tincture",
+      "Dropper"
+    ],
+    "steps": [
+      "Add a few drops of iodine to a small milk sample; blue color suggests starch.",
+      "Shake milk in a bottle; stable thick foam may indicate detergent.",
+      "Drop milk on a smooth surface; rapid spread suggests added water."
+    ],
+    "safety": "Do not ingest tested samples.",
+    "tags": [
+      "dairy"
+    ]
+  },
+  {
+    "category": "Spices & Powders",
+    "item": "Turmeric Powder",
+    "adulterants": [
+      "Metanil Yellow",
+      "Starch"
+    ],
+    "materials": [
+      "Warm water",
+      "Glass bowl"
+    ],
+    "steps": [
+      "Mix a teaspoon in warm water; artificial dye may separate and color the water.",
+      "Add iodine; blue color indicates starch."
+    ],
+    "safety": "Avoid inhaling powders.",
+    "tags": [
+      "spice",
+      "yellow",
+      "haldi"
+    ]
+  },
+  {
+    "category": "Honey & Sweeteners",
+    "item": "Honey",
+    "adulterants": [
+      "Sugar syrup"
+    ],
+    "materials": [
+      "Glass of water"
+    ],
+    "steps": [
+      "Add a spoon of honey to water; pure honey settles, adulterated dissolves quickly."
+    ],
+    "safety": "Do not feed honey to infants <1 year.",
+    "tags": [
+      "sweet"
+    ]
+  }
+]

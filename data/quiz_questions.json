@@ -1,0 +1,46 @@
+[
+  {
+    "question": "Iodine turns which adulterant in milk blue?",
+    "options": [
+      "Starch",
+      "Detergent",
+      "Urea",
+      "Sugar"
+    ],
+    "answer_index": 0,
+    "category": "Milk & Dairy"
+  },
+  {
+    "question": "Stable thick foam after shaking milk can suggest?",
+    "options": [
+      "Pure milk",
+      "Detergent",
+      "Oil",
+      "Salt"
+    ],
+    "answer_index": 1,
+    "category": "Milk & Dairy"
+  },
+  {
+    "question": "Artificial colour in turmeric often shows as:",
+    "options": [
+      "No change",
+      "Clear water",
+      "Yellow residue",
+      "Water turning bright yellow"
+    ],
+    "answer_index": 3,
+    "category": "Spices & Powders"
+  },
+  {
+    "question": "Pure honey dropped in water usually:",
+    "options": [
+      "Dissolves immediately",
+      "Settles at bottom",
+      "Floats",
+      "Explodes"
+    ],
+    "answer_index": 1,
+    "category": "Honey & Sweeteners"
+  }
+]
