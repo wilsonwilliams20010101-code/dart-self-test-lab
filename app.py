@@ -54,16 +54,23 @@ with st.sidebar:
 
 # --------------- HOME (Apple-style) ---------------
 if st.session_state.page == "home":
-    top_nav_home_only()
-    # Quick nav buttons as fallback
-    c1, c2 = st.columns(2)
-    with c1:
-        if st.button("🔎 Tests", use_container_width=True): go("test_library")
-        if st.button("🧪 Quiz", use_container_width=True): go("quiz")
-    with c2:
-        if st.button("📒 My Results", use_container_width=True): go("results")
-        if st.button("⚙️ Admin", use_container_width=True): go("admin")
+if st.session_state.page == "home":
+    # Apple-style hero (title + sub)
+    st.markdown("""
+    <section class="apple-hero apple-font">
+      <h1>DART Self-Test Lab</h1>
+      <p>Simple, guided checks for common adulteration — designed for families, inspired by FSSAI DART awareness.</p>
+    </section>
+    """, unsafe_allow_html=True)
 
+    # iOS-like CTAs that actually navigate
+    ccta1, ccta2 = st.columns(2)
+    with ccta1:
+        st.button("Start Testing", key="cta_tests", on_click=lambda: go("test_library"), use_container_width=True)
+    with ccta2:
+        st.button("Take a Quiz", key="cta_quiz", on_click=lambda: go("quiz"), use_container_width=True)
+
+    # Feature cards (keep)
     st.markdown("""
     <section class="section gray apple-font">
       <div class="grid">
@@ -76,7 +83,6 @@ if st.session_state.page == "home":
       </div>
     </section>
     """, unsafe_allow_html=True)
-    footer_nav()
 
 # --------------- ROUTED PAGES (professional UI) ---------------
 elif st.session_state.page == "test_library":
