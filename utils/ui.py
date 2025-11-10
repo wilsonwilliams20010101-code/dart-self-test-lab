@@ -6,8 +6,14 @@ def load_css():
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 def header(title: str, subtitle: str = ""):
-    st.markdown(f"<div class='card'><h2>🍽️ {title}</h2><p class='small-muted'>{subtitle}</p></div>", unsafe_allow_html=True)
-
+    html = f"""
+    <div class='card' style="padding:18px 16px;">
+      <h2 style="margin:0 0 4px 0;">🍽️ {title}</h2>
+      <p class='small-muted' style="margin:0;">{subtitle}</p>
+    </div>
+    """
+    st.markdown(html, unsafe_allow_html=True)
+    
 def footer_nav():
     st.markdown(
         '''
