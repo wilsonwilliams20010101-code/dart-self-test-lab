@@ -120,3 +120,25 @@ html, body, .stApp { background:#ffffff !important; color:#111111 !important; }
 @media (prefers-color-scheme: dark) {
   html, body, .stApp, [data-testid="stAppViewContainer"], section[data-testid="stSidebar"] { background:#ffffff !important; color:#111111 !important; }
 }
+/* iOS-style Home CTA buttons */
+.stButton>button[key="cta_tests"],
+.stButton>button[key="cta_quiz"] {
+  border-radius: 999px !important;
+  padding: 12px 20px !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  background: #f2f3f5 !important;
+  color: #111 !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,.06);
+}
+
+.stButton>button[key="cta_tests"] {
+  background: #0a84ff !important;
+  color: #fff !important;
+  border-color: #0a84ff !important;
+}
+
+.stButton>button[key="cta_tests"]:active,
+.stButton>button[key="cta_quiz"]:active {
+  transform: scale(0.98);
+}
