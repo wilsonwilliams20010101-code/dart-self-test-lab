@@ -1,8 +1,10 @@
+import time, difflib
 import streamlit as st
 from utils.ui import load_css, header, footer_nav
 from utils.data_manager import load_tests, log_result
 
 def render():
+    st.set_page_config(page_title="Test Library", page_icon="🔎", layout="centered")
     load_css()
     header("Test Library", "Find food items, suspected adulterants, and step-by-step checks.")
 
@@ -11,39 +13,82 @@ def render():
     q = st.text_input("Search by food item or adulterant", placeholder="e.g., milk, turmeric, starch...")
     cat = st.selectbox("Category", ["All"] + categories, index=0) if categories else "All"
 
+    def haystack(t):
+        parts = [t["item"]] + t.get("adulterants", []) + t.get("materials", []) + t.get("tags", [])
+        return " ".join(parts).lower()
+
     def match(t):
-        if cat != "All" and t["category"] != cat:
-            return False
-        if not q:
-            return True
-        hay = " ".join([t["item"]] + t.get("adulterants", [])).lower()
-        return q.lower() in hay
+        if cat != "All" and t["category"] != cat: return False
+        if not q: return True
+        text = q.lower().strip()
+        hay = haystack(t)
+        if text in hay: return True
+        return difflib.SequenceMatcher(None, text, hay).ratio() > 0.55
 
     filtered = [t for t in tests if match(t)] if tests else []
+    if not filtered:
+        st.info("No results. Try another search term or category.")
+        footer_nav(); return
+
+    # state for timers
+    if "active_test" not in st.session_state: st.session_state.active_test = None
+    if "t_start" not in st.session_state: st.session_state.t_start = None
+    if "step_done" not in st.session_state: st.session_state.step_done = {}
 
     for t in filtered:
-        with st.expander(f"🗂️ {t['item']} — {t['category']}"):
+        with st.expander(f"🗂️ {t['item']} — {t['category']}", expanded=False):
             st.markdown(
                 f"""
                 <div class='card'>
                 <div><span class='badge'>Adulterants</span> {', '.join(t.get('adulterants', []))}</div>
                 <div><span class='badge'>Materials</span> {', '.join(t.get('materials', []))}</div>
-                <hr/>
-                <ol>
-                {''.join([f'<li>{step}</li>' for step in t.get('steps', [])])}
-                </ol>
-                <p class='small-muted'>Safety: {t.get('safety', 'Use basic caution')}</p>
+                <p class='small-muted'>Safety: {t.get('safety','Use basic caution')}</p>
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
+
+            # start / stop timer for this item
+            cols = st.columns(3)
+            with cols[0]:
+                if st.button("▶️ Start", key=f"start_{t['item']}"):
+                    st.session_state.active_test = t['item']
+                    st.session_state.t_start = time.time()
+                    st.session_state.step_done = {}
+            with cols[1]:
+                if st.button("⏹ Stop", key=f"stop_{t['item']}") and st.session_state.t_start:
+                    st.session_state.active_test = None
+            with cols[2]:
+                if st.session_state.active_test == t['item'] and st.session_state.t_start:
+                    elapsed = int(time.time() - st.session_state.t_start)
+                    st.markdown(f"**⏱ {elapsed}s**")
+                else:
+                    st.write("")
+
+            st.write("### Steps")
+            # checklist view
+            for i, step in enumerate(t.get("steps", []), start=1):
+                key = f"{t['item']}_step_{i}"
+                checked = st.checkbox(step, key=key, value=st.session_state.step_done.get(key, False))
+                st.session_state.step_done[key] = checked
+                st.markdown(f"<div class='step'><div class='num'>{i}</div><div>{step}</div></div>", unsafe_allow_html=True)
+
+            st.write("### Save Observation")
             with st.form(f"log_{t['item']}"):
                 outcome = st.selectbox("Outcome", ["Not tested", "Likely Pure/OK", "Suspected Adulteration"])
-                notes = st.text_input("Notes (optional)", placeholder="Observed color change, particles, etc.")
-                if st.form_submit_button("Save to My Results"):
-                    log_result(t["item"], outcome, notes)
-                    st.success("Saved to My Results.")
+                confidence = st.slider("Confidence", 0, 100, 70)
+                notes = st.text_input("Notes (optional)", placeholder="Observed color change, foam, sediment, etc.")
+                submit = st.form_submit_button("Save to My Results")
+                if submit:
+                    duration = None
+                    if st.session_state.t_start and st.session_state.active_test in (t['item'], None):
+                        duration = int(time.time() - st.session_state.t_start)
+                    log_result(
+                        t["item"], outcome, notes,
+                        confidence=confidence,
+                        duration_sec=duration or 0
+                    )
+                    st.success("Saved to My Results ✅")
+                    st.toast("Saved ✅", icon="✅")
 
-    if not filtered:
-        st.info("No results. Try another search term or category.")
     footer_nav()
