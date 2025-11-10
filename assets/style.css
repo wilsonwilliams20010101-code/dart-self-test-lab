@@ -165,3 +165,57 @@ input, textarea, select{
 
 /* compact grid spacing for the two-column iOS button grid */
 .ios-grid .stButton{ margin-bottom: 10px; }
+
+/* ===== Apple-style UI ===== */
+:root{
+  --apple-bg:#ffffff;
+  --apple-gray:#f5f5f7;
+  --apple-text:#000;
+  --apple-sub:#6e6e73;
+  --apple-blue:#0a84ff;
+}
+
+.apple-font *{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",
+              Segoe UI,Roboto,Helvetica,Arial,sans-serif !important;
+  letter-spacing:.1px;
+}
+
+.apple-hero{
+  background:var(--apple-bg);
+  text-align:center; padding:42px 12px 24px;
+}
+.apple-hero h1{
+  font-size:34px; line-height:1.1; margin:6px 0 8px; color:var(--apple-text);
+  font-weight:700;
+}
+.apple-hero p{
+  color:var(--apple-sub); font-size:17px; margin:0 auto 18px; max-width:700px;
+}
+
+.apple-cta{
+  display:inline-block; padding:12px 20px; border-radius:999px;
+  border:1px solid rgba(0,0,0,.10); text-decoration:none; font-weight:600;
+  background:#fff; color:#000; margin:6px;
+}
+.apple-cta.primary{
+  background:var(--apple-blue); color:#fff; border-color:var(--apple-blue);
+}
+
+.section{
+  padding:28px 12px; max-width:900px; margin:0 auto;
+}
+.section.gray{
+  background:var(--apple-gray); border-radius:24px;
+}
+
+.grid{
+  display:grid; gap:14px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.card.apple{
+  background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:16px;
+  padding:16px; box-shadow:0 6px 20px rgba(0,0,0,.05);
+}
+.card.apple h3{ font-size:18px; margin:0 0 4px; }
+.card.apple p{ font-size:14px; color:var(--apple-sub); margin:0; }
