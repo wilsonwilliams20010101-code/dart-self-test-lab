@@ -113,3 +113,55 @@ input, textarea, select{
   .stButton > button{ background: var(--bg-secondary) !important; color: var(--text) !important; }
   .badge{ background:#123524; color:#d2ffe8; border:1px solid #1e6443; }
 }
+/* ===== iPhone-style (iOS) Home Theme ===== */
+:root{
+  --ios-text:#0a0a0a;
+  --ios-sub:#5e5e5e;
+  --ios-bg:#ffffff;
+  --ios-pill:#f2f3f5;
+  --ios-pill-border:rgba(0,0,0,.10);
+  --ios-shadow:0 1px 0 rgba(0,0,0,.08), 0 8px 20px rgba(0,0,0,.06);
+  --ios-primary:#198754; /* your brand green */
+}
+
+.ios-home{
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+               Segoe UI, Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+.ios-title{
+  font-size: 28px; line-height: 1.2; font-weight: 700;
+  color: var(--ios-text); letter-spacing: .2px; margin: 2px 0 6px 0;
+}
+.ios-subtitle{
+  font-size: 15px; color: var(--ios-sub);
+  margin: 0 0 12px 0;
+}
+
+/* iOS pill button styling scoped to home only */
+.ios-home .stButton>button{
+  width: 100%;
+  border: 1px solid var(--ios-pill-border) !important;
+  background: var(--ios-pill) !important;
+  color: var(--ios-text) !important;
+  border-radius: 18px !important;
+  padding: 12px 16px !important;
+  font-weight: 600 !important;
+  box-shadow: var(--ios-shadow);
+  transition: transform .06s ease, filter .1s ease, box-shadow .1s ease;
+}
+.ios-home .stButton>button:hover{
+  filter: brightness(0.98);
+}
+.ios-home .stButton>button:active{
+  transform: translateY(1px) scale(0.998);
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+.ios-home .stButton>button.primary{
+  background: var(--ios-primary) !important;
+  color: #fff !important;
+  border-color: var(--ios-primary) !important;
+}
+
+/* compact grid spacing for the two-column iOS button grid */
+.ios-grid .stButton{ margin-bottom: 10px; }
