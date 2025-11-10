@@ -1,7 +1,7 @@
 import os
 import importlib.util
 import streamlit as st
-from utils.ui import load_css, header, footer_nav
+from utils.ui import load_css, header, footer_nav, top_nav
 
 st.set_page_config(page_title="DART Self-Test Lab", page_icon="🍽️", layout="centered")
 
