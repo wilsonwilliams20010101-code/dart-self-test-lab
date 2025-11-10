@@ -38,62 +38,80 @@ load_css()
 
 # --------- HOME ----------
 if st.session_state.page == "home":
-    # iPhone theme container
-    st.markdown("<div class='ios-home'>", unsafe_allow_html=True)
+    # Apple typography wrapper
+    st.markdown("<div class='apple-font'>", unsafe_allow_html=True)
 
-    # Header text (iOS style)
-    st.markdown(
-        """
-        <div class='card' style="padding:18px 16px;">
-          <div class="ios-title">🍽️ DART Self-Test Lab</div>
-          <div class="ios-subtitle">Household self-checks inspired by FSSAI DART awareness material.</div>
+    # Sticky nav (links call your router)
+    st.markdown("""
+    <div class="apple-nav"><div class="wrap">
+      <div class="brand">DART</div>
+      <div class="links">
+        <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;">Tests</a>
+        <a href="#" onclick="window.parent.postMessage({type:'route',page:'quiz'}, '*'); return false;">Quiz</a>
+        <a href="#" onclick="window.parent.postMessage({type:'route',page:'results'}, '*'); return false;">Results</a>
+        <a href="#" onclick="window.parent.postMessage({type:'route',page:'admin'}, '*'); return false;">Admin</a>
+      </div>
+    </div></div>
+    """, unsafe_allow_html=True)
+
+    # JS bridge to call your router from anchor clicks
+    st.markdown("""
+    <script>
+    window.addEventListener('message', (e)=>{
+      const d = e.data||{};
+      if(d.type==='route' && d.page){
+        const streamlitSet = window.parent.Streamlit?.setComponentValue;
+        // Fallback: use query params trigger
+        const qs = new URLSearchParams(window.location.search);
+        qs.set('goto', d.page);
+        window.location.search = qs.toString();
+      }
+    });
+    </script>
+    """, unsafe_allow_html=True)
+
+    # Hero
+    st.markdown("""
+    <section class="apple-hero">
+      <div class="eyebrow">Household Food Safety</div>
+      <h1>DART Self-Test Lab</h1>
+      <p class="sub">Simple, guided checks for common adulteration — designed for families, inspired by FSSAI DART awareness.</p>
+      <a class="apple-cta primary" href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;">Start Testing</a>
+      <a class="apple-cta" href="#" onclick="window.parent.postMessage({type:'route',page:'quiz'}, '*'); return false;">Take a Quiz</a>
+    </section>
+    """, unsafe_allow_html=True)
+
+    # Feature cards
+    st.markdown("""
+    <section class="section gray">
+      <div class="grid">
+        <div class="card apple">
+          <h3>Milk checks</h3>
+          <p>Iodine test for starch, foam check for detergent, quick spread test for water.</p>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # iOS-style button grid
-    st.markdown("<div class='ios-grid'>", unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-    with col1:
-        # Add 'primary=True' style by injecting a 'primary' class after render
-        btn1 = st.button("🔎 Test Library", use_container_width=True, key="btn_tests")
-        btn2 = st.button("🧪 Quiz", use_container_width=True, key="btn_quiz")
-        if btn1: go("test_library")
-        if btn2: go("quiz")
-    with col2:
-        btn3 = st.button("📒 My Results", use_container_width=True, key="btn_results")
-        btn4 = st.button("⚙️ Admin", use_container_width=True, key="btn_admin")
-        if btn3: go("results")
-        if btn4: go("admin")
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    # Make the first button green (primary) with a tiny CSS-target trick
-    st.markdown(
-        """
-        <style>
-        /* mark the first home button as primary */
-        .ios-home .stButton:nth-of-type(1) > button { background: var(--ios-primary) !important; color:#fff !important; border-color: var(--ios-primary) !important; }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # About card (kept crisp)
-    st.markdown(
-        """
-        <div class='card' style="padding:16px 16px;">
-          <h4 style="margin:0 0 6px 0;">About</h4>
-          <p class='small-muted' style="margin:0;">
-          This app provides simple household awareness checks for common food adulteration scenarios.
-          It is <b>not a diagnostic lab tool</b>. For confirmation and compliance, consult accredited labs and official advisories.
-          </p>
+        <div class="card apple">
+          <h3>Spice purity</h3>
+          <p>Detect added dyes or brick powder in turmeric and chilli powders.</p>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+        <div class="card apple">
+          <h3>Honey basics</h3>
+          <p>Water glass method to observe settling vs rapid dissolution.</p>
+        </div>
+      </div>
+    </section>
+    """, unsafe_allow_html=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)  # end .ios-home
+    # Simple button grid (still works with your router)
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("🔎 Tests", use_container_width=True): go("test_library")
+        if st.button("🧪 Quiz", use_container_width=True): go("quiz")
+    with c2:
+        if st.button("📒 My Results", use_container_width=True): go("results")
+        if st.button("⚙️ Admin", use_container_width=True): go("admin")
+
+    st.markdown("</div>", unsafe_allow_html=True)  # end apple-font
+
     footer_nav()
     
 # --------- ROUTED PAGES ----------
