@@ -26,19 +26,28 @@ if goto:
 
 # 3) Helper to load page modules
 def load_and_render(page_filename: str):
+    """Dynamically load a page module by its filename and call render()."""
     pages_dir = os.path.join(os.path.dirname(__file__), "pages")
     path = os.path.join(pages_dir, page_filename)
     if not os.path.exists(path):
         st.error(f"Page file not found: {page_filename}")
         return
+
     spec = importlib.util.spec_from_file_location("page_mod", path)
-    mod = type(__import__("types")).ModuleType("page_mod")
-    spec.loader.exec_module(mod)  # type: ignore
+    if spec is None or spec.loader is None:
+        st.error("Unable to load page spec.")
+        return
+
+    # ✅ Correct way to create a module from a spec
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    # Call the page's render() if present
     if hasattr(mod, "render"):
         mod.render()
     else:
         st.error(f"`render()` not found in {page_filename}")
-
+        
 # Sidebar (Apple-styled but visible)
 with st.sidebar:
     st.markdown("<div class='apple-sidebar-title'>Menu</div>", unsafe_allow_html=True)
