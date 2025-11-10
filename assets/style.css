@@ -1,10 +1,115 @@
-:root { --brand:#198754; }
-.block-container { padding-top: 1rem; padding-bottom: 3.5rem; }
-.card { border:1px solid rgba(0,0,0,.08); border-radius:16px; padding:14px 16px; box-shadow:0 1px 8px rgba(0,0,0,.06); margin-bottom:10px; background:#fff; }
-.badge { display:inline-block; padding:2px 8px; border-radius:999px; font-size:.75rem; background:#e8f5e9; }
-.btn { display:inline-block; padding:10px 14px; border-radius:12px; text-decoration:none; border:1px solid rgba(0,0,0,0.1); }
-.btn-primary { background: var(--brand); color:#fff; border-color: var(--brand); }
-.footer-nav { position: fixed; bottom: 0; left: 0; right:0; background: #fff; border-top:1px solid rgba(0,0,0,0.08); z-index: 9999; }
-.footer-nav .wrap { display:flex; justify-content:space-around; padding:8px 4px; }
-.footer-nav a { text-decoration:none; font-size:.85rem; }
-.small-muted { color:#666; font-size:.8rem; }
+/* ---------- Global / Brand ---------- */
+:root{
+  --brand:#198754;               /* primary green */
+  --bg:#ffffff;
+  --bg-secondary:#f6f8fa;
+  --text:#111111;
+  --text-muted:#555;
+  --border:rgba(0,0,0,.08);
+  --shadow:0 2px 14px rgba(0,0,0,.08);
+}
+
+html, body { background: var(--bg) !important; }
+.block-container { padding-top: 12px; padding-bottom: 70px; max-width: 760px; }
+
+/* Typography: larger, crisper */
+h1,h2,h3,h4,h5 { color: var(--text) !important; letter-spacing:.2px; }
+h2 { font-size: 1.5rem !important; margin: 0 0 .25rem 0; }
+p,li,span,div { color: var(--text) !important; }
+.small-muted { color: var(--text-muted) !important; font-size: .9rem; }
+
+/* Cards */
+.card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow: var(--shadow);
+  padding:16px 16px;
+  margin: 10px 0;
+}
+
+/* Badges / Pills */
+.badge{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:.8rem;
+  background:#e8f5e9;
+  color:#0a5c3d;
+  border:1px solid #d7efe0;
+  margin-right:6px;
+}
+
+/* Buttons */
+.stButton > button{
+  width:100%;
+  border-radius:12px !important;
+  border:1px solid var(--border) !important;
+  padding:10px 14px !important;
+  font-weight:600 !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text) !important;
+}
+.stButton > button:hover{
+  filter: brightness(0.98);
+  box-shadow: var(--shadow);
+}
+.stButton > button[kind="primary"], .btn-primary{
+  background: var(--brand) !important;
+  color:#fff !important;
+  border-color: var(--brand) !important;
+}
+
+/* Inputs */
+input, textarea, select{
+  background:#fff !important;
+  color: var(--text) !important;
+  border-radius:10px !important;
+  border:1px solid var(--border) !important;
+}
+
+/* Footer nav (mobile) */
+.footer-nav{
+  position:fixed; left:0; right:0; bottom:0;
+  background:#fff;
+  border-top:1px solid var(--border);
+  box-shadow: 0 -6px 16px rgba(0,0,0,.04);
+  z-index:9999;
+}
+.footer-nav .wrap{
+  display:flex; justify-content:space-around; gap:10px;
+  padding:10px 8px;
+}
+.footer-nav a{
+  text-decoration:none; color:#0a5c3d; font-weight:600; font-size:.95rem;
+}
+
+/* Expanders: clearer header */
+.stExpander > div{
+  background:#fff !important;
+  border:1px solid var(--border) !important;
+  border-radius:12px !important;
+}
+.st-expanderHeader{
+  color: var(--text) !important;
+  font-weight:600 !important;
+}
+
+/* Tables / lists inside cards */
+.card ol, .card ul { margin: 0 0 6px 20px; }
+.card li { margin: 4px 0; }
+
+/* Optional: Dark-mode safety (if user forces dark in browser) */
+@media (prefers-color-scheme: dark) {
+  :root{
+    --bg:#0f1116;
+    --bg-secondary:#1a1d24;
+    --text:#f5f7fb;
+    --text-muted:#c9ced8;
+    --border:rgba(255,255,255,.12);
+    --shadow:0 2px 14px rgba(0,0,0,.5);
+  }
+  .footer-nav, .card { background: var(--bg-secondary); }
+  .stButton > button{ background: var(--bg-secondary) !important; color: var(--text) !important; }
+  .badge{ background:#123524; color:#d2ffe8; border:1px solid #1e6443; }
+}
