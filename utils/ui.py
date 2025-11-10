@@ -1,0 +1,25 @@
+
+import streamlit as st
+
+def load_css():
+    with open("assets/style.css", "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+def header(title: str, subtitle: str = ""):
+    st.markdown(f"<div class='card'><h2>🍽️ {title}</h2><p class='small-muted'>{subtitle}</p></div>", unsafe_allow_html=True)
+
+def footer_nav():
+    st.markdown(
+        '''
+        <div class="footer-nav">
+            <div class="wrap">
+                <a href="/">🏠 Home</a>
+                <a href="/Test_Library">🔎 Tests</a>
+                <a href="/Quiz">🧪 Quiz</a>
+                <a href="/My_Results">📒 Results</a>
+                <a href="/Admin_Panel">⚙️ Admin</a>
+            </div>
+        </div>
+        ''',
+        unsafe_allow_html=True
+    )
