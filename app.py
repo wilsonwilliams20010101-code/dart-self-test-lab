@@ -38,29 +38,64 @@ load_css()
 
 # --------- HOME ----------
 if st.session_state.page == "home":
-    header("DART Self-Test Lab", "Household self-checks inspired by FSSAI DART awareness material.")
+    # iPhone theme container
+    st.markdown("<div class='ios-home'>", unsafe_allow_html=True)
 
-    col1, col2 = st.columns(2)
-    with col1:
-        st.button("🔎 Test Library", use_container_width=True, on_click=lambda: go("test_library"))
-        st.button("🧪 Quiz", use_container_width=True, on_click=lambda: go("quiz"))
-    with col2:
-        st.button("📒 My Results", use_container_width=True, on_click=lambda: go("results"))
-        st.button("⚙️ Admin", use_container_width=True, on_click=lambda: go("admin"))
-
+    # Header text (iOS style)
     st.markdown(
         """
-        <div class='card'>
-        <h3>About</h3>
-        <p>This app provides simple household awareness checks for common food adulteration scenarios.
-        It is <b>not a diagnostic lab tool</b>. For confirmation and compliance, consult accredited labs and official advisories.</p>
-        <p class='small-muted'>Source inspiration: public food safety awareness materials and common home checks aligned with DART-style guides.</p>
+        <div class='card' style="padding:18px 16px;">
+          <div class="ios-title">🍽️ DART Self-Test Lab</div>
+          <div class="ios-subtitle">Household self-checks inspired by FSSAI DART awareness material.</div>
         </div>
         """,
         unsafe_allow_html=True,
     )
-    footer_nav()
 
+    # iOS-style button grid
+    st.markdown("<div class='ios-grid'>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        # Add 'primary=True' style by injecting a 'primary' class after render
+        btn1 = st.button("🔎 Test Library", use_container_width=True, key="btn_tests")
+        btn2 = st.button("🧪 Quiz", use_container_width=True, key="btn_quiz")
+        if btn1: go("test_library")
+        if btn2: go("quiz")
+    with col2:
+        btn3 = st.button("📒 My Results", use_container_width=True, key="btn_results")
+        btn4 = st.button("⚙️ Admin", use_container_width=True, key="btn_admin")
+        if btn3: go("results")
+        if btn4: go("admin")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # Make the first button green (primary) with a tiny CSS-target trick
+    st.markdown(
+        """
+        <style>
+        /* mark the first home button as primary */
+        .ios-home .stButton:nth-of-type(1) > button { background: var(--ios-primary) !important; color:#fff !important; border-color: var(--ios-primary) !important; }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # About card (kept crisp)
+    st.markdown(
+        """
+        <div class='card' style="padding:16px 16px;">
+          <h4 style="margin:0 0 6px 0;">About</h4>
+          <p class='small-muted' style="margin:0;">
+          This app provides simple household awareness checks for common food adulteration scenarios.
+          It is <b>not a diagnostic lab tool</b>. For confirmation and compliance, consult accredited labs and official advisories.
+          </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("</div>", unsafe_allow_html=True)  # end .ios-home
+    footer_nav()
+    
 # --------- ROUTED PAGES ----------
 elif st.session_state.page == "test_library":
     load_and_render("1_Test_Library.py")
