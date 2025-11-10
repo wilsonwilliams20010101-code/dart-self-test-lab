@@ -5,6 +5,33 @@ from utils.ui import load_css, header, footer_nav, top_nav
 
 st.set_page_config(page_title="DART Self-Test Lab", page_icon="🍽️", layout="centered")
 
+# Load global styles + show Apple-style top navbar on every page
+load_css()
+top_nav(go)
+
+# Optional: Apple-style sidebar menu (kept, not hidden)
+with st.sidebar:
+    st.markdown("<div class='apple-sidebar-title'>Menu</div>", unsafe_allow_html=True)
+    st.markdown("<div class='apple-sidebar-note'>Navigate</div>", unsafe_allow_html=True)
+    st.markdown("<div class='apple-sidenav'>", unsafe_allow_html=True)
+
+    label_map = {
+        "Home": "home",
+        "Test Library": "test_library",
+        "Quiz": "quiz",
+        "My Results": "results",
+        "Admin Panel": "admin",
+        # remove next line if you don't have a Safety page route
+        # "Safety": "safety",
+    }
+    labels = list(label_map.keys())
+    current_label = next((k for k, v in label_map.items() if v == st.session_state.page), "Home")
+    sel = st.radio(" ", labels, index=labels.index(current_label), key="apple_side_nav")
+    if label_map[sel] != st.session_state.page:
+        go(label_map[sel])
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
 # --- simple router stored in session ---
 if "page" not in st.session_state:
     st.session_state.page = "home"
