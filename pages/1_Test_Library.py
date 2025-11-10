@@ -65,7 +65,11 @@ def render():
 
             st.write("### Save Observation")
             with st.form(f"log_{t['item']}"):
-                outcome = st.selectbox("Outcome", ["Not tested", "Likely Pure/OK", "Suspected Adulteration"])
+                # iOS-style pills instead of a dropdown
+st.markdown("<div class='form-pills'>", unsafe_allow_html=True)
+outcomes = ["Not tested", "Likely Pure/OK", "Suspected Adulteration"]
+outcome = st.radio("Outcome", outcomes, horizontal=True, key=f"outcome_{t['item']}")
+st.markdown("</div>", unsafe_allow_html=True)
                 confidence = st.slider("Confidence", 0, 100, 70)
                 notes = st.text_input("Notes (optional)", placeholder="Observed color change, foam, sediment, etc.")
                 submit = st.form_submit_button("Save to My Results")
