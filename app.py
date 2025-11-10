@@ -24,7 +24,7 @@ goto = read_goto_param()
 if goto:
     go(goto)
 
-# 3) Helper to load page modules
+# 3) Helper to load page modules  ✅ (no ModuleType anywhere)
 def load_and_render(page_filename: str):
     """Dynamically load a page module by its filename and call render()."""
     pages_dir = os.path.join(os.path.dirname(__file__), "pages")
@@ -38,11 +38,9 @@ def load_and_render(page_filename: str):
         st.error("Unable to load page spec.")
         return
 
-    # ✅ Correct way to create a module from a spec
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
+    mod = importlib.util.module_from_spec(spec)   # ✅ correct creation
+    spec.loader.exec_module(mod)                  # ✅ load code into module
 
-    # Call the page's render() if present
     if hasattr(mod, "render"):
         mod.render()
     else:
