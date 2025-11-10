@@ -61,7 +61,6 @@ with st.sidebar:
 
 # --------------- HOME (Apple-style) ---------------
 if st.session_state.page == "home":
-if st.session_state.page == "home":
     # Apple-style hero (title + sub)
     st.markdown("""
     <section class="apple-hero apple-font">
