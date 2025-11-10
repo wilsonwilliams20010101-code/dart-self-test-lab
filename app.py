@@ -11,7 +11,12 @@ if "page" not in st.session_state:
 
 def go(page_key: str):
     st.session_state.page = page_key
-    st.experimental_rerun()
+    # Streamlit >=1.30
+    try:
+        st.rerun()
+    except Exception:
+        # fallback for very old versions
+        st.experimental_rerun()  # will be ignored on new Streamlit
 
 def load_and_render(page_filename: str):
     """Dynamically load a page module by its filename and call render()."""
