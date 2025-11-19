@@ -50,7 +50,21 @@ def load_and_render(page_filename: str):
 with st.sidebar:
     st.markdown("<div class='apple-sidebar-title'>Menu</div>", unsafe_allow_html=True)
     st.markdown("<div class='apple-sidebar-note'>Navigate</div>", unsafe_allow_html=True)
-    st.markdown("<div class='apple-sidenav'>", unsafe_allow_html=True)
+    st.markdown("<div class="chime-tile">
+  <div class="panel">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <small style="color:#6b7280">Business Applications</small>
+        <h3>Amazon Chime Web Application</h3>
+        <p style="margin-top:8px">Try the web app — quick access and unified UI for tests.</p>
+      </div>
+      <div style="text-align:right">
+        <div class="arrow">Try the web app →</div>
+      </div>
+    </div>
+  </div>
+</div>
+", unsafe_allow_html=True)
     label_map = {"Home":"home","Test Library":"test_library","Quiz":"quiz","My Results":"results","Admin Panel":"admin"}
     labels = list(label_map.keys())
     current_label = next((k for k,v in label_map.items() if v==st.session_state.page), "Home")
