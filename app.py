@@ -16,13 +16,14 @@ if "page" not in st.session_state:
     st.session_state.page = "home"
 
 def go(page_key: str):
+    """Programmatic navigation helper used from Python."""
     st.session_state.page = page_key
     try:
         st.rerun()
     except Exception:
         st.experimental_rerun()
 
-# support ?goto=page query param
+# support ?goto=page query param (browser navigation bridge)
 goto = read_goto_param()
 if goto:
     go(goto)
@@ -74,7 +75,7 @@ with st.sidebar:
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-# ---------------- HOME (replace the old home HTML/buttons/cards) ----------------
+# ---------------- HOME (single canonical UI) ----------------
 if st.session_state.page == "home":
 
     # HERO
@@ -85,38 +86,40 @@ if st.session_state.page == "home":
       </section>
     """, unsafe_allow_html=True)
 
-    # Glow CTA buttons (single canonical set)
+    # Glow CTA buttons (single canonical set). Use query-param navigation (reliable)
     st.markdown("""
-      <div class="hero-btn-wrapper" style="max-width:760px;margin:10px auto 28px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
+      <div class="hero-btn-wrapper" style="max-width:760px;margin:18px auto 28px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
         <div class="chime-glow" style="flex:1;min-width:220px;">
-          <button class="chime-btn primary" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*')">Start Testing</button>
+          <button class="chime-btn primary"
+            onclick="(function(){const qs=new URLSearchParams(window.location.search);qs.set('goto','test_library');window.location.search=qs.toString();})()">Start Testing</button>
         </div>
         <div class="chime-glow" style="flex:1;min-width:220px;">
-          <button class="chime-btn" onclick="window.parent.postMessage({type:'route',page:'quiz'}, '*')">Take a Quiz</button>
+          <button class="chime-btn"
+            onclick="(function(){const qs=new URLSearchParams(window.location.search);qs.set('goto','quiz');window.location.search=qs.toString();})()">Take a Quiz</button>
         </div>
       </div>
     """, unsafe_allow_html=True)
 
-    # Clickable feature cards (one block)
+    # Clickable feature cards (one block). Each anchor uses the same query-param approach.
     st.markdown("""
       <section class="section gray apple-font" style="margin-top:8px;">
         <div class="grid" style="align-items:start;">
 
-          <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;" style="text-decoration:none; color:inherit;">
+          <a href="#" onclick="(function(){const qs=new URLSearchParams(window.location.search);qs.set('goto','test_library');window.location.search=qs.toString();})(); return false;" style="text-decoration:none; color:inherit;">
             <div class="card apple" role="button" aria-label="Milk checks — open test library">
               <h3>Milk checks</h3>
               <p>Iodine test for starch, foam check for detergent, quick spread test for water.</p>
             </div>
           </a>
 
-          <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;" style="text-decoration:none; color:inherit;">
+          <a href="#" onclick="(function(){const qs=new URLSearchParams(window.location.search);qs.set('goto','test_library');window.location.search=qs.toString();})(); return false;" style="text-decoration:none; color:inherit;">
             <div class="card apple" role="button" aria-label="Spice purity — open test library">
               <h3>Spice purity</h3>
               <p>Detect added dyes or brick powder in turmeric and chilli powders.</p>
             </div>
           </a>
 
-          <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;" style="text-decoration:none; color:inherit; grid-column:1 / -1;">
+          <a href="#" onclick="(function(){const qs=new URLSearchParams(window.location.search);qs.set('goto','test_library');window.location.search=qs.toString();})(); return false;" style="text-decoration:none; color:inherit; grid-column:1 / -1;">
             <div class="card apple" role="button" aria-label="Honey basics — open test library">
               <h3>Honey basics</h3>
               <p>Water glass method to observe settling vs rapid dissolution.</p>
