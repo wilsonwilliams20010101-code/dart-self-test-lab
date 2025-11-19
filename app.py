@@ -82,16 +82,57 @@ with st.sidebar:
 # HOME PAGE
 # ------------------------------------------------------
 if st.session_state.page == "home":
+
+    # Apple hero
+    st.markdown("""
+    <section class="apple-hero apple-font">
+      <h1>DART Self-Test Lab</h1>
+      <p>Simple, guided checks for common adulteration — designed for families, inspired by FSSAI DART awareness.</p>
+    </section>
+    """, unsafe_allow_html=True)
+
+    # CTA BUTTONS
+    ccta1, ccta2 = st.columns(2)
+    with ccta1:
+        st.markdown('<button class="chime-btn" onclick="window.parent.postMessage({type:\'route\',page:\'test_library\'}, \'*\')">Start Testing</button>', unsafe_allow_html=True)
+    with ccta2:
+        st.markdown('<button class="chime-btn" onclick="window.parent.postMessage({type:\'route\',page:\'quiz\'}, \'*\')">Take a Quiz</button>', unsafe_allow_html=True)
+
+    # >>>>>>>>>>>>>>>>>>>>  PASTE THE CARD SECTION HERE  <<<<<<<<<<<<<<<<<<<<<<<<
     st.markdown(
         """
-        <section class="apple-hero apple-font">
-            <h1>DART Self-Test Lab</h1>
-            <p>Simple, guided checks for common adulteration — designed for families, inspired by FSSAI DART awareness.</p>
+        <section class="section gray apple-font" style="margin-top:20px">
+          <div class="grid" style="align-items:start;">
+
+            <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;"
+               style="text-decoration:none; color:inherit;">
+              <div class="card apple" role="button">
+                <h3>Milk checks</h3>
+                <p>Iodine test for starch, foam check for detergent, quick spread test for water.</p>
+              </div>
+            </a>
+
+            <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;"
+               style="text-decoration:none; color:inherit;">
+              <div class="card apple" role="button">
+                <h3>Spice purity</h3>
+                <p>Detect added dyes or brick powder in turmeric and chilli powders.</p>
+              </div>
+            </a>
+
+            <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;"
+               style="text-decoration:none; color:inherit; grid-column: 1 / -1;">
+              <div class="card apple" role="button">
+                <h3>Honey basics</h3>
+                <p>Water glass method to observe settling vs rapid dissolution.</p>
+              </div>
+            </a>
+
+          </div>
         </section>
         """,
-        unsafe_allow_html=True,
+        unsafe_allow_html=True
     )
-
     # --------------------------
     # Glow buttons (final)
     # --------------------------
