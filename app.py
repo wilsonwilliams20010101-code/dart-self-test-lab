@@ -74,72 +74,60 @@ with st.sidebar:
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-# -----------------------
-# HOME page
-# -----------------------
+# ---------------- HOME (replace the old home HTML/buttons/cards) ----------------
 if st.session_state.page == "home":
-    # Hero
-    st.markdown(
-        """
-        <section class="apple-hero apple-font">
-          <h1>DART Self-Test Lab</h1>
-          <p>Simple, guided checks for common adulteration — designed for families, inspired by FSSAI DART awareness.</p>
-        </section>
-        """,
-        unsafe_allow_html=True,
-    )
 
-    # Glow CTA buttons (single authoritative source of truth)
-    st.markdown(
-        """
-        <div class="hero-btn-wrapper" style="max-width:760px;margin:10px auto 28px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
-          <div class="chime-glow" style="flex:1;min-width:220px;">
-            <button class="chime-btn primary" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*')">Start Testing</button>
-          </div>
+    # HERO
+    st.markdown("""
+      <section class="apple-hero apple-font">
+        <h1>DART Self-Test Lab</h1>
+        <p>Simple, guided checks for common adulteration — designed for families, inspired by FSSAI DART awareness.</p>
+      </section>
+    """, unsafe_allow_html=True)
 
-          <div class="chime-glow" style="flex:1;min-width:220px;">
-            <button class="chime-btn" onclick="window.parent.postMessage({type:'route',page:'quiz'}, '*')">Take a Quiz</button>
-          </div>
+    # Glow CTA buttons (single canonical set)
+    st.markdown("""
+      <div class="hero-btn-wrapper" style="max-width:760px;margin:10px auto 28px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
+        <div class="chime-glow" style="flex:1;min-width:220px;">
+          <button class="chime-btn primary" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*')">Start Testing</button>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+        <div class="chime-glow" style="flex:1;min-width:220px;">
+          <button class="chime-btn" onclick="window.parent.postMessage({type:'route',page:'quiz'}, '*')">Take a Quiz</button>
+        </div>
+      </div>
+    """, unsafe_allow_html=True)
 
-    # Clickable feature cards (renders using your .card.apple CSS)
-    st.markdown(
-        """
-        <section class="section gray apple-font" style="margin-top:8px;">
-          <div class="grid" style="align-items:start;">
+    # Clickable feature cards (one block)
+    st.markdown("""
+      <section class="section gray apple-font" style="margin-top:8px;">
+        <div class="grid" style="align-items:start;">
 
-            <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;"
-               style="text-decoration:none; color:inherit;">
-              <div class="card apple" role="button" aria-label="Milk checks — open test library">
-                <h3>Milk checks</h3>
-                <p>Iodine test for starch, foam check for detergent, quick spread test for water.</p>
-              </div>
-            </a>
+          <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;" style="text-decoration:none; color:inherit;">
+            <div class="card apple" role="button" aria-label="Milk checks — open test library">
+              <h3>Milk checks</h3>
+              <p>Iodine test for starch, foam check for detergent, quick spread test for water.</p>
+            </div>
+          </a>
 
-            <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;"
-               style="text-decoration:none; color:inherit;">
-              <div class="card apple" role="button" aria-label="Spice purity — open test library">
-                <h3>Spice purity</h3>
-                <p>Detect added dyes or brick powder in turmeric and chilli powders.</p>
-              </div>
-            </a>
+          <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;" style="text-decoration:none; color:inherit;">
+            <div class="card apple" role="button" aria-label="Spice purity — open test library">
+              <h3>Spice purity</h3>
+              <p>Detect added dyes or brick powder in turmeric and chilli powders.</p>
+            </div>
+          </a>
 
-            <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;"
-               style="text-decoration:none; color:inherit; grid-column:1 / -1;">
-              <div class="card apple" role="button" aria-label="Honey basics — open test library">
-                <h3>Honey basics</h3>
-                <p>Water glass method to observe settling vs rapid dissolution.</p>
-              </div>
-            </a>
+          <a href="#" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*'); return false;" style="text-decoration:none; color:inherit; grid-column:1 / -1;">
+            <div class="card apple" role="button" aria-label="Honey basics — open test library">
+              <h3>Honey basics</h3>
+              <p>Water glass method to observe settling vs rapid dissolution.</p>
+            </div>
+          </a>
 
-          </div>
-        </section>
-        """,
-        unsafe_allow_html=True,
-    )
+        </div>
+      </section>
+    """, unsafe_allow_html=True)
+# -------------------------------------------------------------------------------
+
 
 # -----------------------
 # Routed pages
