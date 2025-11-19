@@ -92,17 +92,24 @@ if st.session_state.page == "home":
 
     # Feature cards
     st.markdown("""
-    <section class="section gray apple-font" style="margin-top:20px">
-      <div class="grid">
-        <div class="card apple"><h3>Milk checks</h3>
-          <p>Iodine test for starch, foam check for detergent, quick spread test for water.</p></div>
-        <div class="card apple"><h3>Spice purity</h3>
-          <p>Detect added dyes or brick powder in turmeric and chilli powders.</p></div>
-        <div class="card apple"><h3>Honey basics</h3>
-          <p>Water glass method to observe settling vs rapid dissolution.</p></div>
+    st.markdown(
+    """
+    <div class="hero-btn-wrapper" style="max-width:920px;margin:0 auto;">
+      <div class="chime-glow" style="display:inline-block;width:48%;min-width:220px;">
+        <button class="chime-btn primary" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*')">
+          Start Testing
+        </button>
       </div>
-    </section>
-    """, unsafe_allow_html=True)
+
+      <div class="chime-glow" style="display:inline-block;width:48%;min-width:220px;">
+        <button class="chime-btn" onclick="window.parent.postMessage({type:'route',page:'quiz'}, '*')">
+          Take a Quiz
+        </button>
+      </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 # ---------------- Routed pages ----------------
 elif st.session_state.page == "test_library":
