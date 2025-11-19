@@ -92,10 +92,15 @@ if st.session_state.page == "home":
     # iOS-like CTAs that actually navigate
     ccta1, ccta2 = st.columns(2)
     with ccta1:
-        st.button("Start Testing", key="cta_tests", on_click=lambda: go("test_library"), use_container_width=True)
+        st.markdown(
+    '<button class="chime-btn" onclick="window.parent.postMessage({type:\'route\',page:\'test_library\'}, \'*\')">Start Testing</button>',
+    unsafe_allow_html=True
+)
     with ccta2:
-        st.button("Take a Quiz", key="cta_quiz", on_click=lambda: go("quiz"), use_container_width=True)
-
+st.markdown(
+    '<button class="chime-btn" onclick="window.parent.postMessage({type:\'route\',page:\'quiz\'}, \'*\')">Take a Quiz</button>',
+    unsafe_allow_html=True
+)
     # Feature cards (keep)
     st.markdown("""
     <section class="section gray apple-font">
