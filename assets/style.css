@@ -1,108 +1,127 @@
-/* ---------- Global / Brand ---------- */
-:root{
-  --brand:#198754;
-  --bg:#ffffff;
-  --bg-secondary:#f6f8fa;
-  --text:#111111;
-  --text-muted:#555;
-  --border:rgba(0,0,0,.08);
-  --shadow:0 2px 14px rgba(0,0,0,.08);
+/* ======================================================
+   DART Self-Test Lab — Consolidated stylesheet
+   - Cleaned duplicates
+   - Apple / iOS home styles
+   - Streamlit overrides
+   - Neon gradient glow effect for .chime-btn and .chime-tile
+   ====================================================== */
 
-  /* Apple (for home only) */
-  --apple-bg:#ffffff;
-  --apple-gray:#f5f5f7;
-  --apple-text:#000;
-  --apple-sub:#6e6e73;
-  --apple-blue:#0a84ff;
+/* ---------- Theme variables ---------- */
+:root{
+  --brand: #198754;
+  --bg: #ffffff;
+  --bg-secondary: #f6f8fa;
+  --text: #111111;
+  --text-muted: #555555;
+  --border: rgba(0,0,0,0.08);
+  --shadow: 0 2px 14px rgba(0,0,0,0.08);
+
+  /* Apple / iOS */
+  --apple-bg: #ffffff;
+  --apple-gray: #f5f5f7;
+  --apple-text: #000000;
+  --apple-sub: #6e6e73;
+  --apple-blue: #0a84ff;
+
+  /* Glow gradient stops (adjust for brand) */
+  --glow-1: rgba(255,125,85,0.12);
+  --glow-2: rgba(200,80,255,0.14);
+  --glow-3: rgba(30,160,255,0.14);
+  --glow-4: rgba(79,224,194,0.10);
 }
 
-html, body { background: var(--bg) !important; }
-.block-container { padding-top: 12px; padding-bottom: 90px; max-width: 1024px; }
+/* ---------- Global layout & basics ---------- */
+html, body, .stApp { background: var(--bg) !important; color: var(--text) !important; }
+.block-container { padding-top: 12px; padding-bottom: 90px; max-width: 1024px; margin-left:auto; margin-right:auto; }
 
 /* Typography */
-h1,h2,h3,h4,h5 { color: var(--text) !important; letter-spacing:.2px; }
+h1,h2,h3,h4,h5 { color: var(--text) !important; letter-spacing: .2px; }
 p,li,span,div { color: var(--text) !important; }
 .small-muted { color: var(--text-muted) !important; font-size: .9rem; }
 
-/* Cards */
-.card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:16px;
+/* ---------- Cards ---------- */
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
   box-shadow: var(--shadow);
-  padding:16px 16px;
+  padding: 16px;
   margin: 10px 0;
 }
 
-/* Buttons */
-.stButton > button{
-  width:100%;
-  border-radius:12px !important;
-  border:1px solid var(--border) !important;
-  padding:10px 14px !important;
-  font-weight:600 !important;
+/* ---------- Streamlit button overrides (native) ---------- */
+.stButton > button {
+  width: 100%;
+  border-radius: 12px !important;
+  border: 1px solid var(--border) !important;
+  padding: 10px 14px !important;
+  font-weight: 600 !important;
   background: var(--bg-secondary) !important;
   color: var(--text) !important;
+  transition: transform .08s ease, box-shadow .12s ease;
 }
-.stButton > button:hover{ filter: brightness(0.98); box-shadow: var(--shadow); }
-.stButton > button[kind="primary"], .btn-primary{ background: var(--brand) !important; color:#fff !important; border-color: var(--brand) !important; }
+.stButton > button:hover {
+  filter: brightness(0.98);
+  box-shadow: var(--shadow);
+}
+.stButton > button[kind="primary"], .btn-primary {
+  background: var(--brand) !important;
+  color: #fff !important;
+  border-color: var(--brand) !important;
+}
 
-/* Inputs */
-input, textarea, select{
-  background:#fff !important;
+/* ---------- Inputs ---------- */
+input, textarea, select {
+  background: #fff !important;
   color: var(--text) !important;
-  border-radius:10px !important;
-  border:1px solid var(--border) !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--border) !important;
 }
 
-/* Footer nav */
-.footer-nav{
-  position:fixed; left:0; right:0; bottom:0;
-  background:#fff;
-  border-top:1px solid var(--border);
-  box-shadow: 0 -6px 16px rgba(0,0,0,.04);
-  z-index:9999;
+/* ---------- Footer nav (mobile) ---------- */
+.footer-nav {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -6px 16px rgba(0,0,0,0.04);
+  z-index: 9999;
 }
-.footer-nav .wrap{ display:flex; justify-content:space-around; gap:10px; padding:10px 8px; }
-.footer-nav a{ text-decoration:none; color:#0a84ff; font-weight:600; font-size:.95rem; }
+.footer-nav .wrap { display:flex; justify-content:space-around; gap:10px; padding:10px 8px; }
+.footer-nav a { text-decoration:none; color: #0a84ff; font-weight:600; font-size:.95rem; }
 
-/* Expanders */
-.stExpander > div{ background:#fff !important; border:1px solid var(--border) !important; border-radius:12px !important; }
-.st-expanderHeader{ color: var(--text) !important; font-weight:600 !important; }
+/* ---------- Expanders ---------- */
+.stExpander > div { background: #fff !important; border: 1px solid var(--border) !important; border-radius: 12px !important; }
+.st-expanderHeader { color: var(--text) !important; font-weight: 600 !important; }
 
-/* --- Apple-style home (only) --- */
-.apple-font *{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",
-              Segoe UI,Roboto,Helvetica,Arial,sans-serif !important;
-  letter-spacing:.1px;
+/* ---------- Apple-style home (scoped) ---------- */
+.apple-font * {
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+              Segoe UI, Roboto, Helvetica, Arial, sans-serif !important;
+  letter-spacing: .1px;
 }
-.apple-hero{
-  background:var(--apple-bg);
-  text-align:center; padding:42px 12px 24px;
+.apple-hero {
+  background: var(--apple-bg);
+  text-align: center;
+  padding: 42px 12px 24px;
 }
-.apple-hero h1{
-  font-size:34px; line-height:1.1; margin:6px 0 8px; color:var(--apple-text);
-  font-weight:700;
+.apple-hero h1 {
+  font-size: 34px; line-height: 1.1; margin: 6px 0 8px; color: var(--apple-text);
+  font-weight: 700;
 }
-.apple-hero p{ color:var(--apple-sub); font-size:17px; margin:0 auto 18px; max-width:700px; }
-.apple-cta{
-  display:inline-block; padding:12px 20px; border-radius:999px;
-  border:1px solid rgba(0,0,0,.10); text-decoration:none; font-weight:600;
-  background:#fff; color:#000; margin:6px;
-}
-.apple-cta.primary{ background:var(--apple-blue); color:#fff; border-color:var(--apple-blue); }
+.apple-hero p { color: var(--apple-sub); font-size: 17px; margin: 0 auto 18px; max-width: 700px; }
 
-.section{ padding:28px 12px; max-width:900px; margin:0 auto; }
-.section.gray{ background:var(--apple-gray); border-radius:24px; }
-.grid{ display:grid; gap:14px; grid-template-columns:repeat(2,minmax(0,1fr)); }
-.card.apple{ background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:16px; padding:16px; box-shadow:0 6px 20px rgba(0,0,0,.05); }
-.card.apple h3{ font-size:18px; margin:0 0 4px; }
-.card.apple p{ font-size:14px; color:var(--apple-sub); margin:0; }
+/* Feature section */
+.section { padding: 28px 12px; max-width: 900px; margin: 0 auto; }
+.section.gray { background: var(--apple-gray); border-radius: 24px; }
+.grid { display:grid; gap:14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card.apple { background: #fff; border: 1px solid rgba(0,0,0,.08); border-radius: 16px; padding: 16px; box-shadow: 0 6px 20px rgba(0,0,0,.05); }
+.card.apple h3 { font-size:18px; margin:0 0 4px; }
+.card.apple p { font-size:14px; color: var(--apple-sub); margin:0; }
 
-/* Sidebar (visible, Apple-clean) */
-section[data-testid="stSidebar"] { background:#ffffff !important; border-right:1px solid rgba(0,0,0,.06); }
+/* ---------- Sidebar styling (Apple-clean) ---------- */
+section[data-testid="stSidebar"] { background: #ffffff !important; border-right: 1px solid rgba(0,0,0,.06); }
 .apple-sidebar-title { font-weight:700; color:#000; margin: 6px 2px 8px; }
-.apple-sidebar-note { color:#6e6e73; font-size:12px; margin:0 2px 10px; }
+.apple-sidebar-note { color: #6e6e73; font-size: 12px; margin: 0 2px 10px; }
 .apple-sidenav .stRadio > label { display:none; }
 .apple-sidenav .stRadio div[role="radiogroup"] > label {
   display:block; margin: 0 0 6px; padding: 10px 12px; border-radius: 12px;
@@ -110,17 +129,19 @@ section[data-testid="stSidebar"] { background:#ffffff !important; border-right:1
 }
 .apple-sidenav .stRadio div[role="radiogroup"] > label:hover { background:#f5f5f7; }
 
-/* Remove heavy focus halos */
-*:focus { outline:none !important; box-shadow:none !important; }
+/* Remove heavy focus halos (keyboard) */
+*:focus { outline: none !important; box-shadow: none !important; }
 
-/* FINAL hard light-mode overrides */
+/* ---------- Hard light-mode overrides (force light UI) ---------- */
 :root { color-scheme: only light; }
-html, body, .stApp { background:#ffffff !important; color:#111111 !important; }
-[data-testid="stAppViewContainer"], [data-testid="block-container"], section.main { background:#ffffff !important; }
+html, body, .stApp { background: #ffffff !important; color: #111111 !important; }
+[data-testid="stAppViewContainer"], [data-testid="block-container"], section.main { background: #ffffff !important; }
 @media (prefers-color-scheme: dark) {
-  html, body, .stApp, [data-testid="stAppViewContainer"], section[data-testid="stSidebar"] { background:#ffffff !important; color:#111111 !important; }
+  html, body, .stApp, [data-testid="stAppViewContainer"], section[data-testid="stSidebar"] { background: #ffffff !important; color: #111111 !important; }
 }
-/* iOS-style Home CTA buttons */
+
+/* ---------- iOS-like native CTA overrides (fallback) ---------- */
+/* If you still use st.button(key="cta_tests"), style it here */
 .stButton>button[key="cta_tests"],
 .stButton>button[key="cta_quiz"] {
   border-radius: 999px !important;
@@ -131,338 +152,169 @@ html, body, .stApp { background:#ffffff !important; color:#111111 !important; }
   color: #111 !important;
   box-shadow: 0 6px 20px rgba(0,0,0,.06);
 }
+.stButton>button[key="cta_tests"] { background: #0a84ff !important; color: #fff !important; border-color: #0a84ff !important; }
+.stButton>button[key="cta_tests"]:active, .stButton>button[key="cta_quiz"]:active { transform: scale(0.98); }
 
-.stButton>button[key="cta_tests"] {
-  background: #0a84ff !important;
-  color: #fff !important;
-  border-color: #0a84ff !important;
-}
+/* ======================================================
+   NEON-GLOW / AMAZON-CHIME-STYLE — core components
+   - .chime-btn: use for hero CTA buttons (HTML buttons injected via st.markdown)
+   - .chime-tile: use for informational tiles (cards)
+   ====================================================== */
 
-.stButton>button[key="cta_tests"]:active,
-.stButton>button[key="cta_quiz"]:active {
-  transform: scale(0.98);
-}
-/* ===== Amazon-Chime-like tile / button style =====
-   Soft rounded tile with inner panel and colorful gradient glow
-*/
-.chime-tile {
+/* Basic tile/button surface (white inset panel) */
+.chime-surface {
   position: relative;
-  display: inline-block;
-  width: 100%;
-  max-width: 420px;      /* control tile width */
-  padding: 28px 26px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,245,246,0.95));
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
-  border: 1px solid rgba(0,0,0,0.04);
-  overflow: visible;
-  transition: transform .12s ease, box-shadow .12s ease;
-}
-
-/* inner content panel to make the card look inset */
-.chime-tile .panel {
-  background: rgba(255,255,255,0.96);
   border-radius: 16px;
-  padding: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.03);
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,251,0.98));
+  padding: 14px;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 6px 20px rgba(2,6,23,0.06);
 }
 
-/* headline and subtitle */
-.chime-tile h3 {
-  margin: 0 0 8px;
-  font-size: 20px;
-  color: #0f1720;
-  font-weight: 700;
-}
-.chime-tile p {
-  margin: 0;
-  color: #4b5563;
+/* Neon gradient ring: use ::before for soft blurred glow and ::after for rim */
+.chime-glow {
+  position: relative;
+  border-radius: 18px; /* slightly larger than inner panel */
+  z-index: 0;
 }
 
-/* colorful glow strip (bottom-left -> top-right) */
-.chime-tile::before {
+/* blurred soft glow */
+.chime-glow::before {
   content: "";
   position: absolute;
-  inset: -6px;            /* slightly outside the tile */
+  inset: -8px;                 /* expand outside the element */
   z-index: -2;
-  border-radius: 26px;
+  border-radius: 22px;
   background: linear-gradient(90deg,
-              rgba(255,125,85,0.12) 0%,
-              rgba(200,80,255,0.14) 30%,
-              rgba(30,160,255,0.14) 60%,
-              rgba(255,200,80,0.10) 100%);
+    var(--glow-1) 0%,
+    var(--glow-2) 28%,
+    var(--glow-3) 60%,
+    var(--glow-4) 100%);
   filter: blur(18px);
-  opacity: 1;
+  opacity: 0.95;
   pointer-events: none;
 }
 
-/* hard colored rim to emphasize edge (subtle) */
-.chime-tile::after {
+/* subtle colored rim */
+.chime-glow::after {
   content: "";
   position: absolute;
   inset: -2px;
-  border-radius: 24px;
   z-index: -1;
+  border-radius: 20px;
   background: linear-gradient(90deg,
-              rgba(255,125,85,0.08) 0%,
-              rgba(200,80,255,0.09) 30%,
-              rgba(30,160,255,0.08) 60%,
-              rgba(255,200,80,0.06) 100%);
+    rgba(255,125,85,0.06) 0%,
+    rgba(200,80,255,0.07) 28%,
+    rgba(30,160,255,0.06) 60%,
+    rgba(79,224,194,0.05) 100%);
   pointer-events: none;
 }
 
-/* hover lift */
-.chime-tile:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 36px rgba(2,6,23,0.18);
-}
-
-/* small arrow used like link hint */
-.chime-tile .arrow {
-  display:inline-block;
-  margin-top:12px;
-  opacity: .9;
-  font-weight:600;
-  color:#0a84ff;
-}
-
-/* Responsive adjustments */
-@media (max-width:720px){
-  .chime-tile { padding: 20px; border-radius:18px; max-width:100%; }
-  .chime-tile .panel { padding:14px; border-radius:12px; }
-}
-/* ---------- Global / Brand ---------- */
-:root{
-  --brand:#198754;
-  --bg:#ffffff;
-  --bg-secondary:#f6f8fa;
-  --text:#111111;
-  --text-muted:#555;
-  --border:rgba(0,0,0,.08);
-  --shadow:0 2px 14px rgba(0,0,0,.08);
-
-  /* Apple (for home only) */
-  --apple-bg:#ffffff;
-  --apple-gray:#f5f5f7;
-  --apple-text:#000;
-  --apple-sub:#6e6e73;
-  --apple-blue:#0a84ff;
-}
-
-html, body { background: var(--bg) !important; }
-.block-container { padding-top: 12px; padding-bottom: 90px; max-width: 1024px; }
-
-/* Typography */
-h1,h2,h3,h4,h5 { color: var(--text) !important; letter-spacing:.2px; }
-p,li,span,div { color: var(--text) !important; }
-.small-muted { color: var(--text-muted) !important; font-size: .9rem; }
-
-/* Cards */
-.card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:16px;
-  box-shadow: var(--shadow);
-  padding:16px 16px;
+/* ---------- CHIME TILE (info card) ---------- */
+.chime-tile {
+  display: block;
+  width: 100%;
+  max-width: 520px;
   margin: 10px 0;
-}
-
-/* Buttons */
-.stButton > button{
-  width:100%;
-  border-radius:12px !important;
-  border:1px solid var(--border) !important;
-  padding:10px 14px !important;
-  font-weight:600 !important;
-  background: var(--bg-secondary) !important;
-  color: var(--text) !important;
-}
-.stButton > button:hover{ filter: brightness(0.98); box-shadow: var(--shadow); }
-.stButton > button[kind="primary"], .btn-primary{ background: var(--brand) !important; color:#fff !important; border-color: var(--brand) !important; }
-
-/* Inputs */
-input, textarea, select{
-  background:#fff !important;
-  color: var(--text) !important;
-  border-radius:10px !important;
-  border:1px solid var(--border) !important;
-}
-
-/* Footer nav */
-.footer-nav{
-  position:fixed; left:0; right:0; bottom:0;
-  background:#fff;
-  border-top:1px solid var(--border);
-  box-shadow: 0 -6px 16px rgba(0,0,0,.04);
-  z-index:9999;
-}
-.footer-nav .wrap{ display:flex; justify-content:space-around; gap:10px; padding:10px 8px; }
-.footer-nav a{ text-decoration:none; color:#0a84ff; font-weight:600; font-size:.95rem; }
-
-/* Expanders */
-.stExpander > div{ background:#fff !important; border:1px solid var(--border) !important; border-radius:12px !important; }
-.st-expanderHeader{ color: var(--text) !important; font-weight:600 !important; }
-
-/* --- Apple-style home (only) --- */
-.apple-font *{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",
-              Segoe UI,Roboto,Helvetica,Arial,sans-serif !important;
-  letter-spacing:.1px;
-}
-.apple-hero{
-  background:var(--apple-bg);
-  text-align:center; padding:42px 12px 24px;
-}
-.apple-hero h1{
-  font-size:34px; line-height:1.1; margin:6px 0 8px; color:var(--apple-text);
-  font-weight:700;
-}
-.apple-hero p{ color:var(--apple-sub); font-size:17px; margin:0 auto 18px; max-width:700px; }
-.apple-cta{
-  display:inline-block; padding:12px 20px; border-radius:999px;
-  border:1px solid rgba(0,0,0,.10); text-decoration:none; font-weight:600;
-  background:#fff; color:#000; margin:6px;
-}
-.apple-cta.primary{ background:var(--apple-blue); color:#fff; border-color:var(--apple-blue); }
-
-.section{ padding:28px 12px; max-width:900px; margin:0 auto; }
-.section.gray{ background:var(--apple-gray); border-radius:24px; }
-.grid{ display:grid; gap:14px; grid-template-columns:repeat(2,minmax(0,1fr)); }
-.card.apple{ background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:16px; padding:16px; box-shadow:0 6px 20px rgba(0,0,0,.05); }
-.card.apple h3{ font-size:18px; margin:0 0 4px; }
-.card.apple p{ font-size:14px; color:var(--apple-sub); margin:0; }
-
-/* Sidebar (visible, Apple-clean) */
-section[data-testid="stSidebar"] { background:#ffffff !important; border-right:1px solid rgba(0,0,0,.06); }
-.apple-sidebar-title { font-weight:700; color:#000; margin: 6px 2px 8px; }
-.apple-sidebar-note { color:#6e6e73; font-size:12px; margin:0 2px 10px; }
-.apple-sidenav .stRadio > label { display:none; }
-.apple-sidenav .stRadio div[role="radiogroup"] > label {
-  display:block; margin: 0 0 6px; padding: 10px 12px; border-radius: 12px;
-  color:#1d1d1f; cursor:pointer; border:1px solid rgba(0,0,0,.06); background:#fff;
-}
-.apple-sidenav .stRadio div[role="radiogroup"] > label:hover { background:#f5f5f7; }
-
-/* Remove heavy focus halos */
-*:focus { outline:none !important; box-shadow:none !important; }
-
-/* FINAL hard light-mode overrides */
-:root { color-scheme: only light; }
-html, body, .stApp { background:#ffffff !important; color:#111111 !important; }
-[data-testid="stAppViewContainer"], [data-testid="block-container"], section.main { background:#ffffff !important; }
-@media (prefers-color-scheme: dark) {
-  html, body, .stApp, [data-testid="stAppViewContainer"], section[data-testid="stSidebar"] { background:#ffffff !important; color:#111111 !important; }
-}
-/* iOS-style Home CTA buttons */
-.stButton>button[key="cta_tests"],
-.stButton>button[key="cta_quiz"] {
-  border-radius: 999px !important;
-  padding: 12px 20px !important;
-  font-weight: 600 !important;
-  border: 1px solid rgba(0,0,0,.10) !important;
-  background: #f2f3f5 !important;
-  color: #111 !important;
-  box-shadow: 0 6px 20px rgba(0,0,0,.06);
-}
-
-.stButton>button[key="cta_tests"] {
-  background: #0a84ff !important;
-  color: #fff !important;
-  border-color: #0a84ff !important;
-}
-
-.stButton>button[key="cta_tests"]:active,
-.stButton>button[key="cta_quiz"]:active {
-  transform: scale(0.98);
-}
-/* ===== Amazon-Chime-like tile / button style =====
-   Soft rounded tile with inner panel and colorful gradient glow
-*/
-.chime-tile {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  max-width: 420px;      /* control tile width */
-  padding: 28px 26px;
   border-radius: 22px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,245,246,0.95));
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
-  border: 1px solid rgba(0,0,0,0.04);
   overflow: visible;
   transition: transform .12s ease, box-shadow .12s ease;
 }
-
-/* inner content panel to make the card look inset */
 .chime-tile .panel {
-  background: rgba(255,255,255,0.96);
   border-radius: 16px;
+  background: #fff;
   padding: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   border: 1px solid rgba(0,0,0,0.03);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  z-index: 1;
+  position: relative;
 }
 
-/* headline and subtitle */
-.chime-tile h3 {
-  margin: 0 0 8px;
-  font-size: 20px;
-  color: #0f1720;
+/* use .chime-glow wrapper to get the neon effect */
+.chime-tile.chime-glow { padding: 8px; }
+
+/* content */
+.chime-tile h3 { margin: 0 0 8px; font-size: 20px; color: #0f1720; font-weight: 700; }
+.chime-tile p { margin: 0; color: #4b5563; font-size: 14px; }
+
+/* hover lift */
+.chime-tile.chime-glow:hover { transform: translateY(-6px); box-shadow: 0 22px 46px rgba(2,6,23,0.18); }
+
+/* ---------- CHIME BUTTON (CTA) ---------- */
+/* Use for hero buttons inserted via st.markdown (HTML) */
+.chime-btn {
+  display: inline-block;
+  width: 100%;
+  max-width: 420px;
+  padding: 14px 20px;
+  border-radius: 18px;
+  border: none;
+  font-size: 16px;
   font-weight: 700;
-}
-.chime-tile p {
-  margin: 0;
-  color: #4b5563;
+  text-align: center;
+  cursor: pointer;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
+  color: #0f1720;
+  position: relative;
+  z-index: 1;
+  transition: transform .12s ease, box-shadow .12s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
 }
 
-/* colorful glow strip (bottom-left -> top-right) */
-.chime-tile::before {
+/* Put the glow ring around the button via wrapper or by using same pseudo approach */
+.chime-btn.chime-glow::before {
   content: "";
   position: absolute;
-  inset: -6px;            /* slightly outside the tile */
+  inset: -8px;
   z-index: -2;
-  border-radius: 26px;
+  border-radius: 22px;
   background: linear-gradient(90deg,
-              rgba(255,125,85,0.12) 0%,
-              rgba(200,80,255,0.14) 30%,
-              rgba(30,160,255,0.14) 60%,
-              rgba(255,200,80,0.10) 100%);
+    var(--glow-1) 0%,
+    var(--glow-2) 28%,
+    var(--glow-3) 60%,
+    var(--glow-4) 100%);
   filter: blur(18px);
-  opacity: 1;
+  opacity: 0.95;
   pointer-events: none;
 }
-
-/* hard colored rim to emphasize edge (subtle) */
-.chime-tile::after {
+.chime-btn.chime-glow::after {
   content: "";
   position: absolute;
   inset: -2px;
-  border-radius: 24px;
   z-index: -1;
+  border-radius: 20px;
   background: linear-gradient(90deg,
-              rgba(255,125,85,0.08) 0%,
-              rgba(200,80,255,0.09) 30%,
-              rgba(30,160,255,0.08) 60%,
-              rgba(255,200,80,0.06) 100%);
+    rgba(255,125,85,0.06) 0%,
+    rgba(200,80,255,0.07) 28%,
+    rgba(30,160,255,0.06) 60%,
+    rgba(79,224,194,0.05) 100%);
   pointer-events: none;
 }
 
-/* hover lift */
-.chime-tile:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 36px rgba(2,6,23,0.18);
+/* hover effect */
+.chime-btn:hover { transform: translateY(-4px); box-shadow: 0 18px 36px rgba(2,6,23,0.14); }
+.chime-btn:active { transform: translateY(-1px) scale(.997); }
+
+/* primary colored CTA variant */
+.chime-btn.primary {
+  background: linear-gradient(180deg, #0a84ff 0%, #066ff1 100%);
+  color: #fff;
+  box-shadow: 0 14px 32px rgba(10,132,255,0.14);
 }
 
-/* small arrow used like link hint */
-.chime-tile .arrow {
-  display:inline-block;
-  margin-top:12px;
-  opacity: .9;
-  font-weight:600;
-  color:#0a84ff;
+/* small arrow / link style inside tile */
+.chime-tile .arrow { display:inline-block; margin-top:12px; opacity: .95; font-weight:700; color: var(--apple-blue); }
+
+/* ---------- Utilities & responsive ---------- */
+.hero-btn-wrapper { display:flex; justify-content:center; gap:24px; margin:20px 0; width:100%; max-width:920px; }
+@media (max-width: 880px) {
+  .grid { grid-template-columns: 1fr; }
+  .hero-btn-wrapper { flex-direction: column; gap:12px; padding:0 12px; }
+  .chime-btn, .chime-tile { max-width: 100%; }
 }
 
-/* Responsive adjustments */
-@media (max-width:720px){
-  .chime-tile { padding: 20px; border-radius:18px; max-width:100%; }
-  .chime-tile .panel { padding:14px; border-radius:12px; }
+/* Reduce intensity on very small viewports */
+@media (max-width: 420px) {
+  .chime-glow::before { filter: blur(12px); opacity: 0.85; }
+  .chime-btn { padding: 12px 14px; font-size: 15px; }
 }
