@@ -1,9 +1,9 @@
 /* ======================================================
-   DART Self-Test Lab — Consolidated stylesheet
-   - Cleaned duplicates
+   assets/style.css - Final consolidated stylesheet
    - Apple / iOS home styles
    - Streamlit overrides
-   - Neon gradient glow effect for .chime-btn and .chime-tile
+   - Neon-gradient glow effect for .chime-btn and .chime-tile
+   - Clean, single-file (no duplicates)
    ====================================================== */
 
 /* ---------- Theme variables ---------- */
@@ -23,7 +23,7 @@
   --apple-sub: #6e6e73;
   --apple-blue: #0a84ff;
 
-  /* Glow gradient stops (adjust for brand) */
+  /* Glow gradient stops */
   --glow-1: rgba(255,125,85,0.12);
   --glow-2: rgba(200,80,255,0.14);
   --glow-3: rgba(30,160,255,0.14);
@@ -87,7 +87,7 @@ input, textarea, select {
   z-index: 9999;
 }
 .footer-nav .wrap { display:flex; justify-content:space-around; gap:10px; padding:10px 8px; }
-.footer-nav a { text-decoration:none; color: #0a84ff; font-weight:600; font-size:.95rem; }
+.footer-nav a { text-decoration:none; color: var(--apple-blue); font-weight:600; font-size:.95rem; }
 
 /* ---------- Expanders ---------- */
 .stExpander > div { background: #fff !important; border: 1px solid var(--border) !important; border-radius: 12px !important; }
@@ -132,7 +132,7 @@ section[data-testid="stSidebar"] { background: #ffffff !important; border-right:
 /* Remove heavy focus halos (keyboard) */
 *:focus { outline: none !important; box-shadow: none !important; }
 
-/* ---------- Hard light-mode overrides (force light UI) ---------- */
+/* ---------- Force light-mode overrides ---------- */
 :root { color-scheme: only light; }
 html, body, .stApp { background: #ffffff !important; color: #111111 !important; }
 [data-testid="stAppViewContainer"], [data-testid="block-container"], section.main { background: #ffffff !important; }
@@ -140,8 +140,7 @@ html, body, .stApp { background: #ffffff !important; color: #111111 !important; 
   html, body, .stApp, [data-testid="stAppViewContainer"], section[data-testid="stSidebar"] { background: #ffffff !important; color: #111111 !important; }
 }
 
-/* ---------- iOS-like native CTA overrides (fallback) ---------- */
-/* If you still use st.button(key="cta_tests"), style it here */
+/* ---------- iOS-like native CTA overrides (fallback for st.button) ---------- */
 .stButton>button[key="cta_tests"],
 .stButton>button[key="cta_quiz"] {
   border-radius: 999px !important;
@@ -152,16 +151,17 @@ html, body, .stApp { background: #ffffff !important; color: #111111 !important; 
   color: #111 !important;
   box-shadow: 0 6px 20px rgba(0,0,0,.06);
 }
-.stButton>button[key="cta_tests"] { background: #0a84ff !important; color: #fff !important; border-color: #0a84ff !important; }
+.stButton>button[key="cta_tests"] { background: var(--apple-blue) !important; color: #fff !important; border-color: var(--apple-blue) !important; }
 .stButton>button[key="cta_tests"]:active, .stButton>button[key="cta_quiz"]:active { transform: scale(0.98); }
 
 /* ======================================================
    NEON-GLOW / AMAZON-CHIME-STYLE — core components
-   - .chime-btn: use for hero CTA buttons (HTML buttons injected via st.markdown)
+   - .chime-btn: use for hero CTA buttons (HTML buttons via st.markdown)
    - .chime-tile: use for informational tiles (cards)
+   - .chime-glow wrapper applies the neon ring
    ====================================================== */
 
-/* Basic tile/button surface (white inset panel) */
+/* helper surface */
 .chime-surface {
   position: relative;
   border-radius: 16px;
@@ -171,18 +171,18 @@ html, body, .stApp { background: #ffffff !important; color: #111111 !important; 
   box-shadow: 0 6px 20px rgba(2,6,23,0.06);
 }
 
-/* Neon gradient ring: use ::before for soft blurred glow and ::after for rim */
+/* glow wrapper (applies ring + rim) */
 .chime-glow {
   position: relative;
-  border-radius: 18px; /* slightly larger than inner panel */
+  border-radius: 18px;
   z-index: 0;
 }
 
-/* blurred soft glow */
+/* soft blurred glow behind element */
 .chime-glow::before {
   content: "";
   position: absolute;
-  inset: -8px;                 /* expand outside the element */
+  inset: -8px;
   z-index: -2;
   border-radius: 22px;
   background: linear-gradient(90deg,
@@ -240,8 +240,10 @@ html, body, .stApp { background: #ffffff !important; color: #111111 !important; 
 /* hover lift */
 .chime-tile.chime-glow:hover { transform: translateY(-6px); box-shadow: 0 22px 46px rgba(2,6,23,0.18); }
 
+/* small arrow / link hint */
+.chime-tile .arrow { display:inline-block; margin-top:12px; opacity: .95; font-weight:700; color: var(--apple-blue); }
+
 /* ---------- CHIME BUTTON (CTA) ---------- */
-/* Use for hero buttons inserted via st.markdown (HTML) */
 .chime-btn {
   display: inline-block;
   width: 100%;
@@ -261,7 +263,7 @@ html, body, .stApp { background: #ffffff !important; color: #111111 !important; 
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);
 }
 
-/* Put the glow ring around the button via wrapper or by using same pseudo approach */
+/* glow ring for buttons when .chime-glow applied */
 .chime-btn.chime-glow::before {
   content: "";
   position: absolute;
@@ -291,7 +293,7 @@ html, body, .stApp { background: #ffffff !important; color: #111111 !important; 
   pointer-events: none;
 }
 
-/* hover effect */
+/* hover / active */
 .chime-btn:hover { transform: translateY(-4px); box-shadow: 0 18px 36px rgba(2,6,23,0.14); }
 .chime-btn:active { transform: translateY(-1px) scale(.997); }
 
@@ -301,9 +303,6 @@ html, body, .stApp { background: #ffffff !important; color: #111111 !important; 
   color: #fff;
   box-shadow: 0 14px 32px rgba(10,132,255,0.14);
 }
-
-/* small arrow / link style inside tile */
-.chime-tile .arrow { display:inline-block; margin-top:12px; opacity: .95; font-weight:700; color: var(--apple-blue); }
 
 /* ---------- Utilities & responsive ---------- */
 .hero-btn-wrapper { display:flex; justify-content:center; gap:24px; margin:20px 0; width:100%; max-width:920px; }
