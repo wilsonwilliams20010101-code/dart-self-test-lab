@@ -92,8 +92,6 @@ if st.session_state.page == "home":
 
     # Feature cards
     st.markdown("""
-    st.markdown(
-    """
     <div class="hero-btn-wrapper" style="max-width:920px;margin:0 auto;">
       <div class="chime-glow" style="display:inline-block;width:48%;min-width:220px;">
         <button class="chime-btn primary" onclick="window.parent.postMessage({type:'route',page:'test_library'}, '*')">
